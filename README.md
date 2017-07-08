@@ -20,7 +20,7 @@ node app.js convert -f './word/med.docx' -t './word/med.html'
 (__Note:__ the sample document in the example above is included in repo `/word/med.docx`)
 
 ## Convert All Word Files Within a Folder
-Convert all the Word files in a given directory by using the `converdir` command and passing the path to the folder `--folder or -d`.
+Convert all the Word files in a given directory by using the `converdir` command and passing the path to the folder `--folder or -d`. The converted files will be in a directory named with the same name provided and nested in an `/output` folder.
 
 ```
 node app.js convertdir --folder './wordfolder'
