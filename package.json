@@ -1,0 +1,17 @@
+{
+  "name": "doc2html",
+  "version": "1.0.0",
+  "description": "Command line Word to HTML converter",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "clean-html": "^1.4.3",
+    "lodash": "^4.17.4",
+    "mammoth": "^1.4.1",
+    "yargs": "^8.0.2"
+  }
+}
