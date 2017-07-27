@@ -1,5 +1,6 @@
 const mammoth = require('mammoth');
 const cleaner = require('clean-html');
+const replacer = require('replace-in-file');
 const fs = require('fs');
 
 let options = {
@@ -7,6 +8,92 @@ let options = {
         "p[style-name='Intro'] => p.intro",
         "p[style-name='List Bullet'] => ul > li:fresh"
     ]
+};
+
+const cmsify = (file) => {
+    let cmsOptions = {
+        files: file,
+
+        from: [ /<p>\[Context\]<\/p>/g,
+                /<p>\[End context\]<\/p>/g,
+                /<p>\[Highlights\]<\/p>/g,
+                /<p>\[End highlights\]<\/p>/g,
+                /<p>\[Details\]<\/p>/g,
+                /<p>\[End details\]<\/p>/g,
+                /<p>/g,
+                /<\/p>/g,
+                /<h1>/g,
+                /<\/h1>/g,
+                /<h2>/g,
+                /<\/h2>/g,
+                /<h3>/g,
+                /<\/h3>/g,
+                /<h4>/g,
+                /<\/h4>/g,
+                /<h5>/g,
+                /<\/h5>/g,
+                /<ul>/g,
+                /<\/ul>/g,
+                /<ol>/g,
+                /<\/ol>/g,
+                /<li>/g,
+                /<\/li>/g,
+                /<strong>/g,
+                /<\/strong>/g,
+                /<em>/g,
+                /<\/em>/g
+        ],
+        to: [   '<context>',
+                '</context>',
+                '<highlights>',
+                '</highlights>',
+                '<section>',
+                '</section>',
+                '<content>',
+                '</content>',
+                '<header level="1">',
+                '</header>',
+                '<header level="2">',
+                '</header>',
+                '<header level="3">',
+                '</header>',
+                '<header level="4">',
+                '</header>',
+                '<header level="5">',
+                '</header>',
+                '<list type="unordered">',
+                '</list>',
+                '<list type="ordered">',
+                '</list>',
+                '<list-item>',
+                '</list-item>',
+                '<b>',
+                '</b>',
+                '<i>',
+                '</i>'
+        ],
+
+        allowEmptyPaths: false,
+        encoding: 'utf8'
+    };
+
+    replacer(cmsOptions)
+        .then(changedFiles => {
+            console.log('Modified files:', changedFiles.join(', '));
+        })
+        .catch(error => {
+            console.error('Error occurred:', error);
+        });
+};
+
+const cmsifyFolder = (dir) => {
+    fs.readdir(dir, (err, files) => {
+        console.log(`CMSifying ${files.length} files`);
+        console.log('*--------------------------------------*');
+        for (let file of files) {
+            cmsify(dir + file);
+        }
+    });
 };
 
 const convertWord = (file, output) => {
@@ -60,5 +147,7 @@ const convertFolder = (dirpath) => {
 
 module.exports = {
     convertWord,
-    convertFolder
+    convertFolder,
+    cmsify,
+    cmsifyFolder
 };

@@ -24,6 +24,20 @@ const argv = yargs
             alias: 'd'
         }
     })
+    .command('cmsify', 'Converts HTML to CMS tags', {
+        file: {
+            describe: 'Path to file and filename',
+            demand: true,
+            alias: 'f'
+        }
+    })
+    .command('cmsifydir', 'Converts HTML tags to CMS tags for all files in folder', {
+        folder: {
+            describe: 'Path to directory',
+            demand: true,
+            alias: 'd'
+        }
+    })
     .help()
     .argv;
 
@@ -35,6 +49,11 @@ if (command === 'convert') {
 } else if (command === 'convertdir') {
     converter.convertFolder(argv.folder);
 
+} else if (command === 'cmsify') {
+    converter.cmsify(argv.file);
+
+} else if (command === 'cmsifydir') {
+    converter.cmsifyFolder(argv.folder);
 } else {
     console.log('Command not recognized');
 }

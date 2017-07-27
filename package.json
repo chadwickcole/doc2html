@@ -12,6 +12,7 @@
     "clean-html": "^1.4.3",
     "lodash": "^4.17.4",
     "mammoth": "^1.4.1",
+    "replace-in-file": "^2.5.3",
     "yargs": "^8.0.2"
   }
 }
