@@ -41,7 +41,9 @@ const cmsify = (file) => {
                 /<strong>/g,
                 /<\/strong>/g,
                 /<em>/g,
-                /<\/em>/g
+                /<\/em>/g,
+                /<td>\n      <content>/g,
+                /<\/content>\n    <\/td>/g
         ],
         to: [   '<context>',
                 '</context>',
@@ -70,7 +72,10 @@ const cmsify = (file) => {
                 '<b>',
                 '</b>',
                 '<i>',
-                '</i>'
+                '</i>',
+                '<td>',
+                '</td>'
+
         ],
 
         allowEmptyPaths: false,
